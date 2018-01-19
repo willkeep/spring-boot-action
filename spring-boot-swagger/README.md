@@ -1,21 +1,21 @@
 # spring-boot-swagger 总结
 ## swagger maven依赖
-```
-        <!-- swagger2 -->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>2.6.1</version>
-        </dependency>
+```xml
+    <!-- swagger2 -->
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger2</artifactId>
+        <version>2.6.1</version>
+    </dependency>
 
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.6.1</version>
-        </dependency>
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger-ui</artifactId>
+        <version>2.6.1</version>
+    </dependency>
 ```
 ## swagger全局配置
-```
+```java
 @Configuration
 public class SwaggerConfig {
 
@@ -57,7 +57,7 @@ public class SwaggerConfig {
 }
 ```
 ## 接口配置
-```
+```java
     /**
      * 保存用户信息
      */
@@ -74,14 +74,14 @@ public class SwaggerConfig {
     }
 ```
 ## 文档和测试
-1. 启动spring-boot
+* 启动spring-boot
 使用maven插件启动
 ![image_1c47hcnp5gl91q1rh0u1e67a5c9.png-42.6kB][1]
-2. 访问swagger接口文档
+* 访问swagger接口文档
 ```
 http://127.0.0.1:8080/swagger-ui.html
 ```
-3. 测试接口
+* 测试接口
 根据描述输入参数，测试接口
 ![image_1c47hhph11isd10q61h0j1n5k12dnm.png-75.1kB][2]
 
