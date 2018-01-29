@@ -22,7 +22,7 @@ public class ApplicationTest {
 
     @Test
     public void test1() throws Exception {
-        sender.send("hello");
+        sender.send("key1");
     }
 
     @Test
@@ -37,7 +37,7 @@ public class ApplicationTest {
 
     @Test
     public void test4() throws Exception {
-        sender.sendToExchange("exchange_name_2","queue_name_1");
+        sender.sendToExchange("exchange_name_2","key1");
     }
 
     @Test

@@ -17,22 +17,22 @@
     <!-- spring template声明-->
     <rabbit:template exchange="exchange_name_1" id="amqpTemplate"  connection-factory="connectionFactory" />
     
-    <!--申明queue-->
+    <!--声明queue-->
     <rabbit:queue id="queue_name_1" name="queue_name_1" durable="true" auto-delete="false" exclusive="false" />
     <rabbit:queue id="queue_name_2" name="queue_name_2" durable="true" auto-delete="false" exclusive="false" />
     
-    <!--申明exchange交换机并绑定queue-->
+    <!--声明exchange交换机并绑定queue-->
     <rabbit:direct-exchange name="exchange_name_1" durable="true" auto-delete="false" id="exchange_name_1">
         <rabbit:bindings>
             <rabbit:binding queue="queue_name_1" key="queue_name_1"/>
         </rabbit:bindings>
     </rabbit:direct-exchange>
 
-    <!--申明exchange交换机并绑定queue-->
+    <!--声明exchange交换机并绑定queue-->
     <rabbit:direct-exchange name="exchange_name_2" durable="true" auto-delete="false" id="exchange_name_2">
         <rabbit:bindings>
-            <rabbit:binding queue="queue_name_1" key="queue_name_1"/>
-            <rabbit:binding queue="queue_name_2" key="queue_name_2"/>
+            <rabbit:binding queue="queue_name_1" key="key1"/>
+            <rabbit:binding queue="queue_name_2" key="key1"/>
         </rabbit:bindings>
     </rabbit:direct-exchange>
 
