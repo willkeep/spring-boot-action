@@ -10,3 +10,7 @@
 5. 访问rabbitmq管理页面：http://localhost:15672
 默认帐号密码：guest guest
 ## spring-boot rabbitmq简单集成
+
+## 参考
+1. https://github.com/401Studio/WeekLearn/issues/2
+2. http://www.ityouknow.com/springboot/2016/11/30/springboot(%E5%85%AB)-RabbitMQ%E8%AF%A6%E8%A7%A3.html

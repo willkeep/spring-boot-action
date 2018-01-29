@@ -21,8 +21,32 @@ public class ApplicationTest {
     private Sender sender;
 
     @Test
-    public void hello() throws Exception {
-        for(int i=0;i<100000;++i)
-        sender.send();
+    public void test1() throws Exception {
+        sender.send("hello");
+    }
+
+    @Test
+    public void test2() throws Exception {
+        sender.send("queue_name_1");
+    }
+
+    @Test
+    public void test3() throws Exception {
+        sender.sendToExchange("exchange_name_3","queue_name_1");
+    }
+
+    @Test
+    public void test4() throws Exception {
+        sender.sendToExchange("exchange_name_2","queue_name_1");
+    }
+
+    @Test
+    public void test5() throws Exception {
+        sender.sendToExchange("exchange_name_1","queue_name_2");
+    }
+
+    @Test
+    public void test6() throws Exception {
+        sender.sendToExchange("exchange_name_2","queue_name_2");
     }
 }

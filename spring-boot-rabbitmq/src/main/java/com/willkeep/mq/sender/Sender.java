@@ -16,9 +16,15 @@ public class Sender {
     @Autowired
     private AmqpTemplate rabbitTemplate;
 
-    public void send() {
-        String context = "hello " + new Date();
+    public void send(String routingKey) {
+        String context = "send1 " + new Date();
         System.out.println("Sender : " + context);
-        rabbitTemplate.convertAndSend("hello", context);
+        rabbitTemplate.convertAndSend(routingKey, context);
+    }
+
+    public void sendToExchange(String exchange,String routingKey) {
+        String context = "send1 " + new Date();
+        System.out.println("Sender : " + context);
+        rabbitTemplate.convertAndSend(exchange, routingKey, context);
     }
 }
