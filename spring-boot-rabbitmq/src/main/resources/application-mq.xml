@@ -7,20 +7,24 @@
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
     http://www.springframework.org/schema/rabbit
-    http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd" >
+    http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
     <description>rabbitmq 连接服务配置</description>
 
     <!-- 连接配置 -->
-    <context:property-placeholder location="classpath:application.properties" />
-    <rabbit:connection-factory id="connectionFactory" host="${mq.host}" username="${mq.username}" password="${mq.password}" port="${mq.port}"/>
+    <context:property-placeholder location="classpath:application.properties"/>
+    <rabbit:connection-factory id="connectionFactory" host="${mq.host}" username="${mq.username}"
+                               password="${mq.password}" port="${mq.port}"
+                               virtual-host="${mq.vhost}"/>
     <rabbit:admin connection-factory="connectionFactory"/>
     <!-- spring template声明-->
-    <rabbit:template exchange="exchange_name_1" id="amqpTemplate"  connection-factory="connectionFactory" message-converter="jsonMessageConverter"/>
-    
+    <rabbit:template exchange="exchange_name_1" id="amqpTemplate" connection-factory="connectionFactory"
+                     message-converter="jsonMessageConverter"/>
+
     <!--声明queue-->
-    <rabbit:queue id="queue_name_1" name="queue_name_1" durable="true" auto-delete="false" exclusive="false" />
-    <rabbit:queue id="queue_name_2" name="queue_name_2" durable="true" auto-delete="false" exclusive="false" />
-    
+    <rabbit:queue id="queue_name_1" name="queue_name_1" durable="true" auto-delete="false" exclusive="false"/>
+    <rabbit:queue id="queue_name_2" name="queue_name_2" durable="true" auto-delete="false" exclusive="false"/>
+    <rabbit:queue id="queue_name_3" name="queue_name_3" durable="true" auto-delete="false" exclusive="false"/>
+
     <!--声明exchange交换机并绑定queue-->
     <rabbit:direct-exchange name="exchange_name_1" durable="true" auto-delete="false" id="exchange_name_1">
         <rabbit:bindings>
@@ -40,15 +44,36 @@
     </rabbit:direct-exchange>
 
     <!--consumer配置监听-->
-    <bean id="reveiver1" class="com.willkeep.mq.receiver.Receiver3" />
-    <bean id="reveiver2" class="com.willkeep.mq.receiver.Receiver4" />
+    <bean id="reveiver1" class="com.willkeep.mq.receiver.Receiver3"/>
+    <bean id="reveiver2" class="com.willkeep.mq.receiver.Receiver4"/>
+    <bean id="reveiver3" class="com.willkeep.mq.receiver.Receiver2"/>
 
-    <rabbit:listener-container connection-factory="connectionFactory" acknowledge="auto" message-converter="jsonMessageConverter">
-        <rabbit:listener queues="queue_name_1" ref="reveiver1" />
-        <rabbit:listener queues="queue_name_2" ref="reveiver2" />
+    <rabbit:listener-container connection-factory="connectionFactory" acknowledge="auto"
+                               message-converter="jsonMessageConverter">
+        <rabbit:listener queues="queue_name_1" ref="reveiver1"/>
+        <rabbit:listener queues="queue_name_2" ref="reveiver2"/>
+        <rabbit:listener queues="queue_name_3" ref="reveiver3"/>
     </rabbit:listener-container>
 
     <bean id="jsonMessageConverter" class="org.springframework.amqp.support.converter.Jackson2JsonMessageConverter">
         <property name="createMessageIds" value="true"/>
     </bean>
+
+    <!-- topic exchange -->
+    <rabbit:topic-exchange name="topic_exchange" durable="true" auto-delete="false" id="exchange_name_2">
+        <rabbit:bindings>
+            <rabbit:binding queue="queue_name_1" pattern="#.a.log.#"/>
+            <rabbit:binding queue="queue_name_2" pattern="#.b.log.#"/>
+            <rabbit:binding queue="queue_name_3" pattern="#.log.#"/>
+        </rabbit:bindings>
+    </rabbit:topic-exchange>
+
+    <!-- fanout exchange -->
+    <rabbit:fanout-exchange name="fanout_exchange" durable="true" auto-delete="false" id="exchange_name_2">
+        <rabbit:bindings>
+            <rabbit:binding queue="queue_name_1"/>
+            <rabbit:binding queue="queue_name_2"/>
+            <rabbit:binding queue="queue_name_3"/>
+        </rabbit:bindings>
+    </rabbit:fanout-exchange>
 </beans>
