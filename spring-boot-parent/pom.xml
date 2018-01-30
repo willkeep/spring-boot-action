@@ -108,6 +108,7 @@
             <artifactId>commons-collections4</artifactId>
             <version>${commons-collections.version}</version>
         </dependency>
+
         <dependency>
             <groupId>io.springside</groupId>
             <artifactId>springside-utils</artifactId>

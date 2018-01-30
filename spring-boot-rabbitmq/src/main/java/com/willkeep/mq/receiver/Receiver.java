@@ -1,7 +1,10 @@
 package com.willkeep.mq.receiver;
 
+import com.rabbitmq.client.Channel;
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.ChannelAwareMessageListener;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,11 +15,12 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @RabbitListener(queues = "hello")
-public class Receiver {
+public class Receiver implements ChannelAwareMessageListener {
 
-    @RabbitHandler
-    public void process(String hello) {
-        System.out.println("Receiver : " + hello);
+    @Override
+    public void onMessage(Message message, Channel channel) throws Exception {
+        String body = new String(message.getBody(), "utf-8");
+        System.out.println("Receiver : " + body);
     }
 
 }

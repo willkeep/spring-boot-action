@@ -26,8 +26,18 @@ public class ApplicationTest {
     }
 
     @Test
+    public void test11() throws Exception {
+        sender.send("key2");
+    }
+
+    @Test
     public void test2() throws Exception {
         sender.send("queue_name_1");
+    }
+
+    @Test
+    public void test21() throws Exception {
+        sender.send("queue_name_2");
     }
 
     @Test
@@ -37,16 +47,16 @@ public class ApplicationTest {
 
     @Test
     public void test4() throws Exception {
-        sender.sendToExchange("exchange_name_2","key1");
+        sender.sendToExchange("","key2");
     }
 
     @Test
     public void test5() throws Exception {
-        sender.sendToExchange("exchange_name_1","queue_name_2");
+        sender.sendToExchange("exchange_name_1","key2");
     }
 
     @Test
     public void test6() throws Exception {
-        sender.sendToExchange("exchange_name_2","queue_name_2");
+        sender.sendToExchange("exchange_name_2","key2");
     }
 }

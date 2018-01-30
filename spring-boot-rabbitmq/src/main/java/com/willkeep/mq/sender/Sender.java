@@ -3,6 +3,8 @@ package com.willkeep.mq.sender;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 import java.util.Date;
 /**
  * <p>Description:</p>
@@ -13,8 +15,12 @@ import java.util.Date;
 @Component
 public class Sender {
 
-    @Autowired
     private AmqpTemplate rabbitTemplate;
+
+    @Resource
+    public void setRabbitTemplate(AmqpTemplate rabbitTemplate) {
+        this.rabbitTemplate = rabbitTemplate;
+    }
 
     public void send(String routingKey) {
         String context = "send1 " + new Date();
